@@ -1,21 +1,3 @@
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-function addTask() {
-  let input = document.getElementById("taskInput");
-  let taskText = input.value.trim();
-
-  if (taskText === "") {
-    alert("Please enter a task");
-    return;
-  }
-
-  tasks.push(taskText);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  input.value = "";
-
-  showTasks();
-}
-
 function showTasks() {
   let list = document.getElementById("taskList");
   list.innerHTML = "";
@@ -26,17 +8,26 @@ function showTasks() {
 
     let doneBtn = document.createElement("button");
     doneBtn.textContent = "✓";
+    doneBtn.style.marginLeft = "10px";
     doneBtn.addEventListener("click", function () {
       li.classList.toggle("completed");
     });
 
     let deleteBtn = document.createElement("button");
     deleteBtn.textContent = "X";
+    deleteBtn.style.marginLeft = "5px";
     deleteBtn.addEventListener("click", function () {
       tasks.splice(i, 1);
-localStorage.setItem("tasks", JSON.stringify(tasks));
-showTasks();
+      showTasks();
     });
+
+    li.appendChild(doneBtn);
+    li.appendChild(deleteBtn);
+    list.appendChild(li);
+  }
+}
+  
+
 
     li.appendChild(doneBtn);
     li.appendChild(deleteBtn);
