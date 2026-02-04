@@ -1,3 +1,17 @@
+let tasks = [];
+
+function addTask() {
+  const input = document.getElementById("taskInput");
+  const taskText = input.value.trim();
+
+  if (taskText === "") return;
+
+  tasks.push(taskText);
+  input.value = "";
+  showTasks();
+}
+
+
 function showTasks() {
   let list = document.getElementById("taskList");
   list.innerHTML = "";
