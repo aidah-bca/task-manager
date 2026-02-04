@@ -2,35 +2,30 @@ let tasks = [];
 
 function addTask() {
   const input = document.getElementById("taskInput");
-  const taskText = input.value.trim();
+  const text = input.value.trim();
+  if (!text) return;
 
-  if (taskText === "") return;
-
-  tasks.push(taskText);
+  tasks.push(text);
   input.value = "";
   showTasks();
 }
 
-
 function showTasks() {
-  let list = document.getElementById("taskList");
+  const list = document.getElementById("taskList");
   list.innerHTML = "";
 
-  for (let i = 0; i < tasks.length; i++) {
-    let li = document.createElement("li");
+  tasks.forEach((task, i) => {
+    const li = document.createElement("li");
 
-    // text span (IMPORTANT)
-    let span = document.createElement("span");
-    span.textContent = tasks[i];
+    const span = document.createElement("span");
+    span.textContent = task;
 
-    let doneBtn = document.createElement("button");
+    const doneBtn = document.createElement("button");
     doneBtn.textContent = "✓";
     doneBtn.style.marginLeft = "10px";
-    doneBtn.onclick = () => {
-      span.classList.toggle("completed");
-    };
+    doneBtn.onclick = () => span.classList.toggle("completed");
 
-    let deleteBtn = document.createElement("button");
+    const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "X";
     deleteBtn.style.marginLeft = "5px";
     deleteBtn.onclick = () => {
@@ -42,16 +37,9 @@ function showTasks() {
     li.appendChild(doneBtn);
     li.appendChild(deleteBtn);
     list.appendChild(li);
-  }
+  });
 }
 
-
-   
-
-document.getElementById("addBtn").addEventListener("click", addTask);
-document.getElementById("taskInput").addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    document.getElementById("addBtn").click();
-  }
-});
-showTasks();
+document
+  .getElementById("addBtn")
+  .addEventListener("click", addTask);
